@@ -4,6 +4,7 @@ import { computeMetrics } from './physics/performance';
 import { scalePolarByMass } from './physics/wingLoading';
 import { PolarChart, COLORS } from './components/PolarChart';
 import { WingLoadPanel } from './components/WingLoadPanel';
+import { TheorySection } from './components/TheorySection';
 
 const BORDER_COLORS = ['border-blue-500', 'border-red-500', 'border-green-500', 'border-purple-500'];
 
@@ -117,6 +118,8 @@ export default function App() {
           );
         })}
       </ul>
+
+      <TheorySection />
     </div>
   );
 }
