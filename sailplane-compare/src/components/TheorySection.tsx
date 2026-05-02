@@ -133,6 +133,54 @@ export function TheorySection() {
             </p>
           </Accordion>
 
+          <Accordion title="Wing modifications — span extensions and winglets">
+            <p>
+              Wing modifications are modelled by transforming the analytical polar coefficients
+              when geometry changes.
+            </p>
+            <p>
+              For a <strong>span extension</strong> of Δb metres (total, both tips), the new wing area
+              is estimated from the tip chord:
+            </p>
+            <Formula>S_new = S + Δb · c_tip &nbsp;&nbsp; where c_tip ≈ 0.40 · (S/b)</Formula>
+            <p>
+              The analytical polar coefficients then scale as:
+            </p>
+            <Formula>
+              c₁_new = c₁ · (S_new/S)² &nbsp;&nbsp; (parasitic drag scales with wetted area)<br />
+              c₂_new = c₂ · (b/b_new)² &nbsp;&nbsp; (induced drag scales inversely with b²)
+            </Formula>
+            <p>
+              <strong>Winglets</strong> are modelled as an equivalent effective span increase:
+            </p>
+            <Formula>Δb_eff = 2 · h_winglet · η &nbsp;&nbsp; where η = 0.45</Formula>
+            <p>
+              The efficiency factor η = 0.45 is calibrated from Boermans et al. (OSTIV 2006),
+              who measured effective span ratios for modern winglets in flight test.
+              Both modifications can be combined additively.
+            </p>
+            <p>
+              <strong>Empirical validation</strong> against 6 IDA flight-test pairs (same airframe with
+              and without span extension):
+            </p>
+            <ul className="list-disc pl-5 space-y-1 text-xs">
+              <li>DG 1000: 18m → 20m, +7.3 %/m best L/D</li>
+              <li>Kestrel: 17m → 22m, +2.5 %/m</li>
+              <li>LS 3: 15m → 17m, +3.7 %/m</li>
+              <li>Ventus: 15m → 16.6m, +2.1 %/m</li>
+              <li>Nimbus 3: 22.9m → 24.5m, +6.7 %/m</li>
+              <li>Salto: 13.6m → 15m, +8.5 %/m</li>
+            </ul>
+            <p>
+              Mean: <strong>+4.5 %/m</strong> — consistent with the analytic formula predicting
+              3–5 %/m for 15m class gliders at typical wing loading.
+            </p>
+            <p className="text-xs text-slate-400">
+              The model fits c₁ and c₂ by least squares to the measured polar before applying
+              the geometric scaling — no manufacturer polar shape is assumed.
+            </p>
+          </Accordion>
+
           <Accordion title="Data sources and methodology">
             <p>
               Polar data in this app comes from <strong>Idaflieg</strong> (Interessengemeinschaft

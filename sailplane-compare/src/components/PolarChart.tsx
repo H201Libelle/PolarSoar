@@ -3,6 +3,8 @@ import Plot from 'react-plotly.js';
 import { buildSpline, samplePolar } from '../physics/polar';
 import { findMinSink, findBestLD } from '../physics/performance';
 import { scalePolarByMass } from '../physics/wingLoading';
+import { applyModifications, DEFAULT_MOD_CONFIG } from '../physics/modifications';
+import type { ModConfig } from '../physics/modifications';
 import type { Glider } from '../data/types';
 
 export const COLORS = ['#2563eb', '#dc2626', '#16a34a', '#9333ea'];
@@ -18,9 +20,10 @@ type SpeedUnit = 'kmh' | 'ms' | 'kts';
 interface Props {
   gliders: Glider[];
   wsOverrides: Record<string, number>;
+  modConfigs?: Record<string, ModConfig>;
 }
 
-export function PolarChart({ gliders, wsOverrides }: Props) {
+export function PolarChart({ gliders, wsOverrides, modConfigs = {} }: Props) {
   const [speedUnit, setSpeedUnit] = useState<SpeedUnit>('kmh');
 
   const toSpeed = (ms: number) =>
@@ -40,7 +43,9 @@ export function PolarChart({ gliders, wsOverrides }: Props) {
     const wsRef = g.referenceMass / g.wingArea;
     const wsCurrent = wsOverrides[g.id] ?? wsRef;
     const scaledMass = wsCurrent * g.wingArea;
-    const scaledPoints = scalePolarByMass(g.polarPoints, g.referenceMass, scaledMass);
+    const modCfg = modConfigs[g.id] ?? DEFAULT_MOD_CONFIG;
+    const modifiedPoints = applyModifications(g.polarPoints, g.wingspan, g.wingArea, modCfg);
+    const scaledPoints = scalePolarByMass(modifiedPoints, g.referenceMass, scaledMass);
     const spline = buildSpline(scaledPoints);
     const samples = samplePolar(spline, 150);
     const minSink = findMinSink(spline);
