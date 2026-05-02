@@ -1,95 +1,371 @@
 [
   {
-    "id": "asw-27b",
+    "id": "asw19",
     "manufacturer": "Schleicher",
-    "model": "ASW 27B",
-    "competitionClass": "15m",
-    "year": 2003,
+    "model": "ASW 19",
+    "competitionClass": "Standard",
+    "year": 1975,
     "wingspan": 15.0,
-    "wingArea": 9.0,
-    "aspectRatio": 25.0,
-    "hasWinglets": true,
-    "airfoil": "DU 89-134/14",
-    "emptyMass": 245,
-    "mtow": 500,
-    "maxWaterBallast": 190,
-    "referenceMass": 350,
-    "polarPoints": [
-      { "v": 22.2, "w": 0.62 },
-      { "v": 25.0, "w": 0.6 },
-      { "v": 27.8, "w": 0.65 },
-      { "v": 33.3, "w": 0.78 },
-      { "v": 38.9, "w": 0.97 },
-      { "v": 44.4, "w": 1.27 },
-      { "v": 50.0, "w": 1.7 },
-      { "v": 55.6, "w": 2.27 }
-    ],
-    "vStall": 18.5,
-    "vNe": 77.8,
-    "source": "manufacturer",
+    "wingArea": 10.5,
+    "hasWinglets": false,
+    "emptyMass": 232,
+    "mtow": 430,
+    "maxWaterBallast": 100,
+    "source": "idaflieg",
     "confidence": "high",
-    "notes": "Sample data based on published manufacturer polar. Replace with verified dataset."
+    "notes": "IDA flight-test polar, D-4525, W/S=31.5 kg/m\u00b2",
+    "referenceMass": 330.8,
+    "polarPoints": [
+      {
+        "v": 20.8333,
+        "w": 0.65
+      },
+      {
+        "v": 22.2222,
+        "w": 0.63
+      },
+      {
+        "v": 23.6111,
+        "w": 0.63
+      },
+      {
+        "v": 25.0,
+        "w": 0.65
+      },
+      {
+        "v": 26.3889,
+        "w": 0.69
+      },
+      {
+        "v": 27.7778,
+        "w": 0.75
+      },
+      {
+        "v": 29.1667,
+        "w": 0.81
+      },
+      {
+        "v": 30.5556,
+        "w": 0.87
+      },
+      {
+        "v": 31.9444,
+        "w": 0.94
+      },
+      {
+        "v": 33.3333,
+        "w": 1.02
+      },
+      {
+        "v": 34.7222,
+        "w": 1.09
+      },
+      {
+        "v": 36.1111,
+        "w": 1.17
+      },
+      {
+        "v": 37.5,
+        "w": 1.27
+      },
+      {
+        "v": 38.8889,
+        "w": 1.37
+      },
+      {
+        "v": 40.2778,
+        "w": 1.49
+      },
+      {
+        "v": 41.6667,
+        "w": 1.63
+      },
+      {
+        "v": 43.0556,
+        "w": 1.76
+      },
+      {
+        "v": 44.4444,
+        "w": 1.92
+      },
+      {
+        "v": 45.8333,
+        "w": 2.07
+      },
+      {
+        "v": 47.2222,
+        "w": 2.25
+      },
+      {
+        "v": 48.6111,
+        "w": 2.44
+      },
+      {
+        "v": 50.0,
+        "w": 2.64
+      },
+      {
+        "v": 51.3889,
+        "w": 2.84
+      },
+      {
+        "v": 52.7778,
+        "w": 3.04
+      },
+      {
+        "v": 54.1667,
+        "w": 3.26
+      },
+      {
+        "v": 55.5556,
+        "w": 3.37
+      }
+    ]
   },
   {
-    "id": "ls8-18",
-    "manufacturer": "Rolladen-Schneider",
-    "model": "LS8-18",
-    "competitionClass": "18m",
-    "year": 2000,
-    "wingspan": 18.0,
-    "wingArea": 11.4,
-    "aspectRatio": 28.4,
-    "hasWinglets": true,
-    "airfoil": "DU 84-158/17",
-    "emptyMass": 280,
-    "mtow": 525,
-    "maxWaterBallast": 185,
-    "referenceMass": 380,
-    "polarPoints": [
-      { "v": 22.2, "w": 0.55 },
-      { "v": 25.0, "w": 0.53 },
-      { "v": 27.8, "w": 0.57 },
-      { "v": 33.3, "w": 0.7 },
-      { "v": 38.9, "w": 0.88 },
-      { "v": 44.4, "w": 1.15 },
-      { "v": 50.0, "w": 1.55 },
-      { "v": 55.6, "w": 2.1 }
-    ],
-    "vStall": 18.0,
-    "vNe": 77.8,
-    "source": "manufacturer",
-    "confidence": "high",
-    "notes": "Sample data based on published manufacturer polar. Replace with verified dataset."
-  },
-  {
-    "id": "discus-2c",
+    "id": "discus-a",
     "manufacturer": "Schempp-Hirth",
-    "model": "Discus 2c",
-    "competitionClass": "18m",
-    "year": 2004,
-    "wingspan": 18.0,
-    "wingArea": 11.36,
-    "aspectRatio": 28.5,
-    "hasWinglets": true,
-    "airfoil": "HQ-style",
-    "emptyMass": 285,
-    "mtow": 525,
+    "model": "Discus A",
+    "competitionClass": "Standard",
+    "year": 1984,
+    "wingspan": 15.0,
+    "wingArea": 10.58,
+    "hasWinglets": false,
+    "emptyMass": 235,
+    "mtow": 430,
     "maxWaterBallast": 200,
-    "referenceMass": 380,
-    "polarPoints": [
-      { "v": 22.2, "w": 0.56 },
-      { "v": 25.0, "w": 0.54 },
-      { "v": 27.8, "w": 0.58 },
-      { "v": 33.3, "w": 0.71 },
-      { "v": 38.9, "w": 0.9 },
-      { "v": 44.4, "w": 1.18 },
-      { "v": 50.0, "w": 1.58 },
-      { "v": 55.6, "w": 2.15 }
-    ],
-    "vStall": 18.3,
-    "vNe": 77.8,
-    "source": "manufacturer",
+    "source": "idaflieg",
     "confidence": "high",
-    "notes": "Sample data based on published manufacturer polar. Replace with verified dataset."
+    "notes": "IDA flight-test polar, D-6111, W/S=29.67 kg/m\u00b2",
+    "referenceMass": 313.9,
+    "polarPoints": [
+      {
+        "v": 19.4444,
+        "w": 0.6
+      },
+      {
+        "v": 20.8333,
+        "w": 0.57
+      },
+      {
+        "v": 22.2222,
+        "w": 0.56
+      },
+      {
+        "v": 23.6111,
+        "w": 0.56
+      },
+      {
+        "v": 25.0,
+        "w": 0.59
+      },
+      {
+        "v": 26.3889,
+        "w": 0.62
+      },
+      {
+        "v": 27.7778,
+        "w": 0.66
+      },
+      {
+        "v": 29.1667,
+        "w": 0.71
+      },
+      {
+        "v": 30.5556,
+        "w": 0.77
+      },
+      {
+        "v": 31.9444,
+        "w": 0.83
+      },
+      {
+        "v": 33.3333,
+        "w": 0.91
+      },
+      {
+        "v": 34.7222,
+        "w": 1.0
+      },
+      {
+        "v": 36.1111,
+        "w": 1.09
+      },
+      {
+        "v": 37.5,
+        "w": 1.19
+      },
+      {
+        "v": 38.8889,
+        "w": 1.28
+      },
+      {
+        "v": 40.2778,
+        "w": 1.39
+      },
+      {
+        "v": 41.6667,
+        "w": 1.51
+      },
+      {
+        "v": 43.0556,
+        "w": 1.65
+      },
+      {
+        "v": 44.4444,
+        "w": 1.85
+      },
+      {
+        "v": 45.8333,
+        "w": 2.09
+      },
+      {
+        "v": 47.2222,
+        "w": 2.33
+      },
+      {
+        "v": 48.6111,
+        "w": 2.55
+      },
+      {
+        "v": 50.0,
+        "w": 2.77
+      },
+      {
+        "v": 51.3889,
+        "w": 2.99
+      },
+      {
+        "v": 52.7778,
+        "w": 3.21
+      },
+      {
+        "v": 54.1667,
+        "w": 3.43
+      }
+    ]
+  },
+  {
+    "id": "ls1f",
+    "manufacturer": "Rolladen-Schneider",
+    "model": "LS 1f",
+    "competitionClass": "Standard",
+    "year": 1978,
+    "wingspan": 15.0,
+    "wingArea": 9.74,
+    "hasWinglets": false,
+    "emptyMass": 228,
+    "mtow": 400,
+    "maxWaterBallast": 0,
+    "source": "idaflieg",
+    "confidence": "high",
+    "notes": "IDA flight-test polar, D-3252, W/S=35.5 kg/m\u00b2",
+    "referenceMass": 345.8,
+    "polarPoints": [
+      {
+        "v": 19.4444,
+        "w": 0.76
+      },
+      {
+        "v": 20.8333,
+        "w": 0.67
+      },
+      {
+        "v": 22.2222,
+        "w": 0.64
+      },
+      {
+        "v": 23.6111,
+        "w": 0.65
+      },
+      {
+        "v": 25.0,
+        "w": 0.68
+      },
+      {
+        "v": 26.3889,
+        "w": 0.71
+      },
+      {
+        "v": 27.7778,
+        "w": 0.75
+      },
+      {
+        "v": 29.1667,
+        "w": 0.8
+      },
+      {
+        "v": 30.5556,
+        "w": 0.85
+      },
+      {
+        "v": 31.9444,
+        "w": 0.89
+      },
+      {
+        "v": 33.3333,
+        "w": 0.98
+      },
+      {
+        "v": 34.7222,
+        "w": 1.07
+      },
+      {
+        "v": 36.1111,
+        "w": 1.17
+      },
+      {
+        "v": 37.5,
+        "w": 1.26
+      },
+      {
+        "v": 38.8889,
+        "w": 1.37
+      },
+      {
+        "v": 40.2778,
+        "w": 1.48
+      },
+      {
+        "v": 41.6667,
+        "w": 1.6
+      },
+      {
+        "v": 43.0556,
+        "w": 1.72
+      },
+      {
+        "v": 44.4444,
+        "w": 1.87
+      },
+      {
+        "v": 45.8333,
+        "w": 2.02
+      },
+      {
+        "v": 47.2222,
+        "w": 2.18
+      },
+      {
+        "v": 48.6111,
+        "w": 2.34
+      },
+      {
+        "v": 50.0,
+        "w": 2.52
+      },
+      {
+        "v": 51.3889,
+        "w": 2.72
+      },
+      {
+        "v": 52.7778,
+        "w": 2.93
+      },
+      {
+        "v": 54.1667,
+        "w": 3.14
+      }
+    ]
   }
 ]
