@@ -1,0 +1,3 @@
+# Claude Code worktrees — never commit these
+.claude/worktrees/
+sailplane-compare/.claude/worktrees/
