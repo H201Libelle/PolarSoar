@@ -9,7 +9,8 @@ import type { Glider } from '../data/types';
 
 export const COLORS = ['#2563eb', '#dc2626', '#16a34a', '#9333ea'];
 
-const PLOTLY_CONFIG = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const PLOTLY_CONFIG: Record<string, any> = {
   responsive: true,
   displayModeBar: true,
   modeBarButtonsToRemove: ['lasso2d', 'select2d'],
@@ -203,7 +204,7 @@ export function PolarChart({ gliders, wsOverrides, modConfigs = {} }: Props) {
   });
 
   const commonXAxis = {
-    title: speedLabel,
+    title: { text: speedLabel },
     range: speedRange,
     gridcolor: '#e2e8f0',
     zeroline: false,
@@ -238,7 +239,7 @@ export function PolarChart({ gliders, wsOverrides, modConfigs = {} }: Props) {
             layout={{
               xaxis: commonXAxis,
               yaxis: {
-                title: 'Vz (m/s)',
+                title: { text: 'Vz (m/s)' },
                 range: [-3.6, 0.3],
                 gridcolor: '#e2e8f0',
                 zeroline: true,
@@ -265,7 +266,7 @@ export function PolarChart({ gliders, wsOverrides, modConfigs = {} }: Props) {
             layout={{
               xaxis: commonXAxis,
               yaxis: {
-                title: 'L/D (dimensionless)',
+                title: { text: 'L/D (dimensionless)' },
                 range: [0, 55],
                 gridcolor: '#e2e8f0',
                 zeroline: false,
