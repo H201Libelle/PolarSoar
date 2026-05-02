@@ -1,6 +1,7 @@
 import Plot from 'react-plotly.js';
 import { buildSpline, samplePolar } from '../physics/polar';
 import { findMinSink, findBestLD } from '../physics/performance';
+import { scalePolarByMass } from '../physics/wingLoading';
 import type { Glider } from '../data/types';
 
 export const COLORS = ['#2563eb', '#dc2626', '#16a34a', '#9333ea'];
@@ -13,9 +14,10 @@ const PLOTLY_CONFIG = {
 
 interface Props {
   gliders: Glider[];
+  wsOverrides: Record<string, number>;
 }
 
-export function PolarChart({ gliders }: Props) {
+export function PolarChart({ gliders, wsOverrides }: Props) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const vzTraces: any[] = [];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -23,7 +25,11 @@ export function PolarChart({ gliders }: Props) {
 
   gliders.forEach((g, i) => {
     const color = COLORS[i % COLORS.length];
-    const spline = buildSpline(g.polarPoints);
+    const wsRef = g.referenceMass / g.wingArea;
+    const wsCurrent = wsOverrides[g.id] ?? wsRef;
+    const scaledMass = wsCurrent * g.wingArea;
+    const scaledPoints = scalePolarByMass(g.polarPoints, g.referenceMass, scaledMass);
+    const spline = buildSpline(scaledPoints);
     const samples = samplePolar(spline, 150);
     const minSink = findMinSink(spline);
     const bestLD = findBestLD(spline);
