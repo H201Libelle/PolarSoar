@@ -14,8 +14,8 @@ export function WingLoadPanel({ gliders, wsOverrides, onChange }: Props) {
       <div className="space-y-4">
         {gliders.map((g, i) => {
           const color = COLORS[i % COLORS.length];
-          const wsMin = Math.ceil(g.emptyMass / g.wingArea);
-          const wsMax = Math.floor(g.mtow / g.wingArea);
+          const wsMin = g.emptyMass ? Math.ceil(g.emptyMass / g.wingArea) : Math.max(15, Math.round(wsRef * 0.75));
+          const wsMax = g.mtow ? Math.floor(g.mtow / g.wingArea) : Math.round(wsRef * 1.35);
           const wsRef = +(g.referenceMass / g.wingArea).toFixed(1);
           const wsCurrent = wsOverrides[g.id] ?? wsRef;
 
