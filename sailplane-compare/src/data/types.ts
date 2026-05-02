@@ -42,11 +42,11 @@ export interface Glider {
 
   // --- masses ---
   /** Empty mass in kg */
-  emptyMass: number;
+  emptyMass?: number;
   /** Maximum takeoff mass in kg */
-  mtow: number;
+  mtow?: number;
   /** Maximum water ballast in kg (0 if none) */
-  maxWaterBallast: number;
+  maxWaterBallast?: number;
 
   // --- polar ---
   /** Reference mass at which polarPoints were measured, in kg */
@@ -60,7 +60,11 @@ export interface Glider {
 
   // --- provenance ---
   source: DataSource;
-  confidence: Confidence;
+  /** Short source code from the database, e.g. "IDA", "MD" */
+  sourceId?: string;
+  /** Human-readable source label, e.g. "Idaflieg flight-test (D-4525)" */
+  sourceLabel?: string;
+  confidence?: Confidence;
   /** Free-text notes, citations, caveats */
   notes?: string;
 }
