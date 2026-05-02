@@ -1,0 +1,346 @@
+{
+  "gliders": [
+    {
+      "id": "asw19",
+      "name": "ASW 19",
+      "model": "ASW 19",
+      "registration": "D-4525",
+      "source": "IDA",
+      "wingLoading": 31.5,
+      "polar": [
+        {
+          "speed": 75,
+          "sink": 0.65
+        },
+        {
+          "speed": 80,
+          "sink": 0.63
+        },
+        {
+          "speed": 85,
+          "sink": 0.63
+        },
+        {
+          "speed": 90,
+          "sink": 0.65
+        },
+        {
+          "speed": 95,
+          "sink": 0.69
+        },
+        {
+          "speed": 100,
+          "sink": 0.75
+        },
+        {
+          "speed": 105,
+          "sink": 0.81
+        },
+        {
+          "speed": 110,
+          "sink": 0.87
+        },
+        {
+          "speed": 115,
+          "sink": 0.94
+        },
+        {
+          "speed": 120,
+          "sink": 1.02
+        },
+        {
+          "speed": 125,
+          "sink": 1.09
+        },
+        {
+          "speed": 130,
+          "sink": 1.17
+        },
+        {
+          "speed": 135,
+          "sink": 1.27
+        },
+        {
+          "speed": 140,
+          "sink": 1.37
+        },
+        {
+          "speed": 145,
+          "sink": 1.49
+        },
+        {
+          "speed": 150,
+          "sink": 1.63
+        },
+        {
+          "speed": 155,
+          "sink": 1.76
+        },
+        {
+          "speed": 160,
+          "sink": 1.92
+        },
+        {
+          "speed": 165,
+          "sink": 2.07
+        },
+        {
+          "speed": 170,
+          "sink": 2.25
+        },
+        {
+          "speed": 175,
+          "sink": 2.44
+        },
+        {
+          "speed": 180,
+          "sink": 2.64
+        },
+        {
+          "speed": 185,
+          "sink": 2.84
+        },
+        {
+          "speed": 190,
+          "sink": 3.04
+        },
+        {
+          "speed": 195,
+          "sink": 3.26
+        },
+        {
+          "speed": 200,
+          "sink": 3.37
+        }
+      ]
+    },
+    {
+      "id": "discus-a",
+      "name": "Discus A",
+      "model": "Discus A",
+      "registration": "D-6111",
+      "source": "IDA",
+      "wingLoading": 29.67,
+      "polar": [
+        {
+          "speed": 70,
+          "sink": 0.6
+        },
+        {
+          "speed": 75,
+          "sink": 0.57
+        },
+        {
+          "speed": 80,
+          "sink": 0.56
+        },
+        {
+          "speed": 85,
+          "sink": 0.56
+        },
+        {
+          "speed": 90,
+          "sink": 0.59
+        },
+        {
+          "speed": 95,
+          "sink": 0.62
+        },
+        {
+          "speed": 100,
+          "sink": 0.66
+        },
+        {
+          "speed": 105,
+          "sink": 0.71
+        },
+        {
+          "speed": 110,
+          "sink": 0.77
+        },
+        {
+          "speed": 115,
+          "sink": 0.83
+        },
+        {
+          "speed": 120,
+          "sink": 0.91
+        },
+        {
+          "speed": 125,
+          "sink": 1.0
+        },
+        {
+          "speed": 130,
+          "sink": 1.09
+        },
+        {
+          "speed": 135,
+          "sink": 1.19
+        },
+        {
+          "speed": 140,
+          "sink": 1.28
+        },
+        {
+          "speed": 145,
+          "sink": 1.39
+        },
+        {
+          "speed": 150,
+          "sink": 1.51
+        },
+        {
+          "speed": 155,
+          "sink": 1.65
+        },
+        {
+          "speed": 160,
+          "sink": 1.85
+        },
+        {
+          "speed": 165,
+          "sink": 2.09
+        },
+        {
+          "speed": 170,
+          "sink": 2.33
+        },
+        {
+          "speed": 175,
+          "sink": 2.55
+        },
+        {
+          "speed": 180,
+          "sink": 2.77
+        },
+        {
+          "speed": 185,
+          "sink": 2.99
+        },
+        {
+          "speed": 190,
+          "sink": 3.21
+        },
+        {
+          "speed": 195,
+          "sink": 3.43
+        }
+      ]
+    },
+    {
+      "id": "ls1f",
+      "name": "LS 1f",
+      "model": "LS 1 f",
+      "registration": "D-3252",
+      "source": "IDA",
+      "wingLoading": 35.5,
+      "polar": [
+        {
+          "speed": 70,
+          "sink": 0.76
+        },
+        {
+          "speed": 75,
+          "sink": 0.67
+        },
+        {
+          "speed": 80,
+          "sink": 0.64
+        },
+        {
+          "speed": 85,
+          "sink": 0.65
+        },
+        {
+          "speed": 90,
+          "sink": 0.68
+        },
+        {
+          "speed": 95,
+          "sink": 0.71
+        },
+        {
+          "speed": 100,
+          "sink": 0.75
+        },
+        {
+          "speed": 105,
+          "sink": 0.8
+        },
+        {
+          "speed": 110,
+          "sink": 0.85
+        },
+        {
+          "speed": 115,
+          "sink": 0.89
+        },
+        {
+          "speed": 120,
+          "sink": 0.98
+        },
+        {
+          "speed": 125,
+          "sink": 1.07
+        },
+        {
+          "speed": 130,
+          "sink": 1.17
+        },
+        {
+          "speed": 135,
+          "sink": 1.26
+        },
+        {
+          "speed": 140,
+          "sink": 1.37
+        },
+        {
+          "speed": 145,
+          "sink": 1.48
+        },
+        {
+          "speed": 150,
+          "sink": 1.6
+        },
+        {
+          "speed": 155,
+          "sink": 1.72
+        },
+        {
+          "speed": 160,
+          "sink": 1.87
+        },
+        {
+          "speed": 165,
+          "sink": 2.02
+        },
+        {
+          "speed": 170,
+          "sink": 2.18
+        },
+        {
+          "speed": 175,
+          "sink": 2.34
+        },
+        {
+          "speed": 180,
+          "sink": 2.52
+        },
+        {
+          "speed": 185,
+          "sink": 2.72
+        },
+        {
+          "speed": 190,
+          "sink": 2.93
+        },
+        {
+          "speed": 195,
+          "sink": 3.14
+        }
+      ]
+    }
+  ]
+}
