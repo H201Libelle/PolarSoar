@@ -1,3 +1,10 @@
 # Claude Code worktrees — never commit these
 .claude/worktrees/
 sailplane-compare/.claude/worktrees/
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
