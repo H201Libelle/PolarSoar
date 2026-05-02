@@ -23,6 +23,10 @@ interface Props {
   modConfigs?: Record<string, ModConfig>;
 }
 
+function isModified(cfg: ModConfig): boolean {
+  return cfg.wingExtension !== 0 || cfg.addWinglets;
+}
+
 export function PolarChart({ gliders, wsOverrides, modConfigs = {} }: Props) {
   const [speedUnit, setSpeedUnit] = useState<SpeedUnit>('kmh');
 
@@ -44,25 +48,95 @@ export function PolarChart({ gliders, wsOverrides, modConfigs = {} }: Props) {
     const wsCurrent = wsOverrides[g.id] ?? wsRef;
     const scaledMass = wsCurrent * g.wingArea;
     const modCfg = modConfigs[g.id] ?? DEFAULT_MOD_CONFIG;
+    const modified = isModified(modCfg);
+    const label = `${g.manufacturer} ${g.model}`;
+    const labelMod = modified ? `${label} (modified)` : label;
+
+    // Base polar (always computed; shown as ghost when modifications are active)
+    const baseScaled = scalePolarByMass(g.polarPoints, g.referenceMass, scaledMass);
+    const baseSpline = buildSpline(baseScaled);
+    const baseSamples = samplePolar(baseSpline, 150);
+    const baseSpeeds = baseSamples.map((p) => +toSpeed(p.v).toFixed(2));
+    const baseBestLD = findBestLD(baseSpline);
+
+    if (modified) {
+      // Ghost Vz trace — dashed, semi-transparent, same color
+      vzTraces.push({
+        type: 'scatter',
+        mode: 'lines',
+        name: `${label} (base)`,
+        x: baseSpeeds,
+        y: baseSamples.map((p) => +(-p.w).toFixed(3)),
+        line: { color, width: 1.5, dash: 'dot' },
+        opacity: 0.45,
+        hovertemplate:
+          `<b>${label} (base)</b><br>` +
+          `Speed: %{x:.1f} ${speedUnitLabel}<br>` +
+          `Sink: %{customdata:.2f} m/s<br>` +
+          `L/D: %{text}<extra></extra>`,
+        customdata: baseSamples.map((p) => p.w),
+        text: baseSamples.map((p) => (p.v / p.w).toFixed(1)),
+      });
+
+      // Ghost L/D trace
+      ldTraces.push({
+        type: 'scatter',
+        mode: 'lines',
+        name: `${label} (base)`,
+        x: baseSpeeds,
+        y: baseSamples.map((p) => +(p.v / p.w).toFixed(2)),
+        line: { color, width: 1.5, dash: 'dot' },
+        opacity: 0.45,
+        hovertemplate:
+          `<b>${label} (base)</b><br>` +
+          `Speed: %{x:.1f} ${speedUnitLabel}<br>` +
+          `L/D: %{y:.1f}<extra></extra>`,
+      });
+
+      // Best L/D marker on base for Vz chart (open diamond)
+      vzTraces.push({
+        type: 'scatter',
+        mode: 'markers',
+        showlegend: false,
+        x: [+toSpeed(baseBestLD.v).toFixed(2)],
+        y: [+(-baseBestLD.w).toFixed(3)],
+        marker: { color, size: 8, symbol: 'diamond-open', opacity: 0.5 },
+        hovertemplate:
+          `<b>${label} (base)</b><br>Best L/D: ${baseBestLD.ld.toFixed(1)} @ ${toSpeed(baseBestLD.v).toFixed(speedDecimals)} ${speedUnitLabel}<extra></extra>`,
+      });
+
+      // Best L/D marker on base for L/D chart
+      ldTraces.push({
+        type: 'scatter',
+        mode: 'markers',
+        showlegend: false,
+        x: [+toSpeed(baseBestLD.v).toFixed(2)],
+        y: [+baseBestLD.ld.toFixed(2)],
+        marker: { color, size: 8, symbol: 'diamond-open', opacity: 0.5 },
+        hovertemplate:
+          `<b>${label} (base)</b><br>Best L/D: ${baseBestLD.ld.toFixed(1)} @ ${toSpeed(baseBestLD.v).toFixed(speedDecimals)} ${speedUnitLabel}<extra></extra>`,
+      });
+    }
+
+    // Modified (or unmodified) polar — solid, full opacity
     const modifiedPoints = applyModifications(g.polarPoints, g.wingspan, g.wingArea, modCfg);
     const scaledPoints = scalePolarByMass(modifiedPoints, g.referenceMass, scaledMass);
     const spline = buildSpline(scaledPoints);
     const samples = samplePolar(spline, 150);
     const minSink = findMinSink(spline);
     const bestLD = findBestLD(spline);
-    const label = `${g.manufacturer} ${g.model}`;
     const speeds = samples.map((p) => +toSpeed(p.v).toFixed(2));
 
     // --- Vz chart ---
     vzTraces.push({
       type: 'scatter',
       mode: 'lines',
-      name: label,
+      name: labelMod,
       x: speeds,
       y: samples.map((p) => +(-p.w).toFixed(3)),
       line: { color, width: 2.5 },
       hovertemplate:
-        `<b>${label}</b><br>` +
+        `<b>${labelMod}</b><br>` +
         `Speed: %{x:.1f} ${speedUnitLabel}<br>` +
         `Sink: %{customdata:.2f} m/s<br>` +
         `L/D: %{text}<extra></extra>`,
@@ -88,7 +162,7 @@ export function PolarChart({ gliders, wsOverrides, modConfigs = {} }: Props) {
       y: [+(-minSink.w).toFixed(3)],
       marker: { color, size: 9, symbol: 'circle' },
       hovertemplate:
-        `<b>${label}</b><br>Min sink: ${minSink.w.toFixed(2)} m/s @ ${toSpeed(minSink.v).toFixed(speedDecimals)} ${speedUnitLabel}<extra></extra>`,
+        `<b>${labelMod}</b><br>Min sink: ${minSink.w.toFixed(2)} m/s @ ${toSpeed(minSink.v).toFixed(speedDecimals)} ${speedUnitLabel}<extra></extra>`,
     });
 
     vzTraces.push({
@@ -99,19 +173,19 @@ export function PolarChart({ gliders, wsOverrides, modConfigs = {} }: Props) {
       y: [+(-bestLD.w).toFixed(3)],
       marker: { color, size: 9, symbol: 'diamond' },
       hovertemplate:
-        `<b>${label}</b><br>Best L/D: ${bestLD.ld.toFixed(1)} @ ${toSpeed(bestLD.v).toFixed(speedDecimals)} ${speedUnitLabel}<extra></extra>`,
+        `<b>${labelMod}</b><br>Best L/D: ${bestLD.ld.toFixed(1)} @ ${toSpeed(bestLD.v).toFixed(speedDecimals)} ${speedUnitLabel}<extra></extra>`,
     });
 
     // --- L/D chart ---
     ldTraces.push({
       type: 'scatter',
       mode: 'lines',
-      name: label,
+      name: labelMod,
       x: speeds,
       y: samples.map((p) => +(p.v / p.w).toFixed(2)),
       line: { color, width: 2.5 },
       hovertemplate:
-        `<b>${label}</b><br>` +
+        `<b>${labelMod}</b><br>` +
         `Speed: %{x:.1f} ${speedUnitLabel}<br>` +
         `L/D: %{y:.1f}<extra></extra>`,
     });
@@ -124,7 +198,7 @@ export function PolarChart({ gliders, wsOverrides, modConfigs = {} }: Props) {
       y: [+bestLD.ld.toFixed(2)],
       marker: { color, size: 9, symbol: 'diamond' },
       hovertemplate:
-        `<b>${label}</b><br>Best L/D: ${bestLD.ld.toFixed(1)} @ ${toSpeed(bestLD.v).toFixed(speedDecimals)} ${speedUnitLabel}<extra></extra>`,
+        `<b>${labelMod}</b><br>Best L/D: ${bestLD.ld.toFixed(1)} @ ${toSpeed(bestLD.v).toFixed(speedDecimals)} ${speedUnitLabel}<extra></extra>`,
     });
   });
 
@@ -179,7 +253,7 @@ export function PolarChart({ gliders, wsOverrides, modConfigs = {} }: Props) {
             style={{ width: '100%', height: '380px' }}
             config={PLOTLY_CONFIG}
           />
-          <p className="mt-1 text-xs text-slate-400">◆ best L/D &nbsp;● min sink &nbsp;╌ best L/D tangent from origin</p>
+          <p className="mt-1 text-xs text-slate-400">◆ best L/D &nbsp;● min sink &nbsp;╌ best L/D tangent &nbsp;◇ base best L/D</p>
         </div>
 
         <div>
@@ -205,7 +279,7 @@ export function PolarChart({ gliders, wsOverrides, modConfigs = {} }: Props) {
             style={{ width: '100%', height: '380px' }}
             config={PLOTLY_CONFIG}
           />
-          <p className="mt-1 text-xs text-slate-400">◆ best L/D</p>
+          <p className="mt-1 text-xs text-slate-400">◆ best L/D &nbsp;◇ base best L/D</p>
         </div>
       </div>
     </div>
