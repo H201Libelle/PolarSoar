@@ -2,8 +2,11 @@ import { useEffect, useState } from 'react';
 import type { Glider } from './data/types';
 import { computeMetrics } from './physics/performance';
 import { scalePolarByMass } from './physics/wingLoading';
+import { DEFAULT_MOD_CONFIG } from './physics/modifications';
+import type { ModConfig } from './physics/modifications';
 import { PolarChart, COLORS } from './components/PolarChart';
 import { WingLoadPanel } from './components/WingLoadPanel';
+import { ModificationsPanel } from './components/ModificationsPanel';
 import { TheorySection } from './components/TheorySection';
 
 const BORDER_COLORS = ['border-blue-500', 'border-red-500', 'border-green-500', 'border-purple-500'];
@@ -13,6 +16,7 @@ export default function App() {
   const [error, setError] = useState<string | null>(null);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const [wsOverrides, setWsOverrides] = useState<Record<string, number>>({});
+  const [modConfigs, setModConfigs] = useState<Record<string, ModConfig>>({});
 
   useEffect(() => {
     fetch(import.meta.env.BASE_URL + 'data/gliders.json')
@@ -27,9 +31,11 @@ export default function App() {
   function toggleGlider(g: Glider) {
     setSelectedIds((prev) => {
       if (prev.includes(g.id)) return prev.filter((x) => x !== g.id);
-      // initialise W/S override to reference value on first selection
       setWsOverrides((ws) =>
         ws[g.id] !== undefined ? ws : { ...ws, [g.id]: +(g.referenceMass / g.wingArea).toFixed(1) }
+      );
+      setModConfigs((mc) =>
+        mc[g.id] !== undefined ? mc : { ...mc, [g.id]: DEFAULT_MOD_CONFIG }
       );
       return [...prev, g.id];
     });
@@ -37,6 +43,10 @@ export default function App() {
 
   function handleWsChange(id: string, ws: number) {
     setWsOverrides((prev) => ({ ...prev, [id]: ws }));
+  }
+
+  function handleModChange(id: string, cfg: ModConfig) {
+    setModConfigs((prev) => ({ ...prev, [id]: cfg }));
   }
 
   if (error) return <div className="p-6 text-red-600">Failed to load gliders: {error}</div>;
@@ -66,8 +76,17 @@ export default function App() {
             wsOverrides={wsOverrides}
             onChange={handleWsChange}
           />
+          <ModificationsPanel
+            gliders={selectedGliders}
+            modConfigs={modConfigs}
+            onChange={handleModChange}
+          />
           <div className="mb-6 rounded-xl border bg-white p-4 shadow-sm">
-            <PolarChart gliders={selectedGliders} wsOverrides={wsOverrides} />
+            <PolarChart
+              gliders={selectedGliders}
+              wsOverrides={wsOverrides}
+              modConfigs={modConfigs}
+            />
             <p className="mt-2 text-xs text-slate-400">
               ◆ best L/D &nbsp;● min sink &nbsp;╌ best L/D tangent from origin
             </p>
