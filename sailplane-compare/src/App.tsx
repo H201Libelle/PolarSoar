@@ -8,10 +8,13 @@ import { PolarChart, COLORS } from './components/PolarChart';
 import { WingLoadPanel } from './components/WingLoadPanel';
 import { ModificationsPanel } from './components/ModificationsPanel';
 import { TheorySection } from './components/TheorySection';
+import { LoginScreen } from './components/LoginScreen';
 
 const BORDER_COLORS = ['border-blue-500', 'border-red-500', 'border-green-500', 'border-purple-500'];
 
 export default function App() {
+  const [authed, setAuthed] = useState(() => sessionStorage.getItem('spade_auth') === '1');
+
   const [allGliders, setAllGliders] = useState<Glider[] | null>(null);
   const [error, setError]           = useState<string | null>(null);
 
@@ -98,6 +101,8 @@ export default function App() {
   function handleModChange(id: string, cfg: ModConfig) {
     setModConfigs((prev) => ({ ...prev, [id]: cfg }));
   }
+
+  if (!authed) return <LoginScreen onLogin={() => setAuthed(true)} />;
 
   if (error)      return <div className="p-6 text-red-600">Failed to load gliders: {error}</div>;
   if (!allGliders) return <div className="p-6 text-slate-500">Loading gliders…</div>;
