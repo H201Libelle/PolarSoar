@@ -1,7 +1,9 @@
 import { useState } from 'react';
 
+export type UserTier = 'private' | 'public';
+
 interface Props {
-  onLogin: () => void;
+  onLogin: (tier: UserTier) => void;
 }
 
 export function LoginScreen({ onLogin }: Props) {
@@ -11,11 +13,15 @@ export function LoginScreen({ onLogin }: Props) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const validUser = import.meta.env.VITE_AUTH_USERNAME ?? 'plozzers';
-    const validPass = import.meta.env.VITE_AUTH_PASSWORD ?? 'H201Libelle';
-    if (username === validUser && password === validPass) {
-      sessionStorage.setItem('spade_auth', '1');
-      onLogin();
+    const privateUser = import.meta.env.VITE_AUTH_USERNAME ?? 'plozzers';
+    const privatePass = import.meta.env.VITE_AUTH_PASSWORD ?? 'H201Libelle';
+
+    if (username === privateUser && password === privatePass) {
+      sessionStorage.setItem('spade_auth', 'private');
+      onLogin('private');
+    } else if (username === 'cumulus' && password === 'humilis') {
+      sessionStorage.setItem('spade_auth', 'public');
+      onLogin('public');
     } else {
       setError(true);
     }

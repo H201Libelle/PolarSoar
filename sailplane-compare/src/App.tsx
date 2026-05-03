@@ -4,16 +4,21 @@ import { computeMetrics } from './physics/performance';
 import { scalePolarByMass } from './physics/wingLoading';
 import { DEFAULT_MOD_CONFIG } from './physics/modifications';
 import type { ModConfig } from './physics/modifications';
+import { approximateGliders } from './physics/approximate';
 import { PolarChart, COLORS } from './components/PolarChart';
 import { WingLoadPanel } from './components/WingLoadPanel';
 import { ModificationsPanel } from './components/ModificationsPanel';
 import { TheorySection } from './components/TheorySection';
 import { LoginScreen } from './components/LoginScreen';
+import type { UserTier } from './components/LoginScreen';
 
 const BORDER_COLORS = ['border-blue-500', 'border-red-500', 'border-green-500', 'border-purple-500'];
 
 export default function App() {
-  const [authed, setAuthed] = useState(() => sessionStorage.getItem('spade_auth') === '1');
+  const [userTier, setUserTier] = useState<UserTier | null>(() => {
+    const stored = sessionStorage.getItem('spade_auth');
+    return stored === 'private' || stored === 'public' ? stored : null;
+  });
 
   const [allGliders, setAllGliders] = useState<Glider[] | null>(null);
   const [error, setError]           = useState<string | null>(null);
@@ -28,11 +33,15 @@ export default function App() {
   const [modConfigs, setModConfigs]         = useState<Record<string, ModConfig>>({});
 
   useEffect(() => {
+    if (!userTier) return;
     fetch(import.meta.env.BASE_URL + 'data/gliders.json')
       .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+      .then((gliders: Glider[]) =>
+        userTier === 'public' ? approximateGliders(gliders) : gliders
+      )
       .then(setAllGliders)
       .catch((e) => setError(String(e)));
-  }, []);
+  }, [userTier]);
 
   // Group gliders by model name
   const glidersByModel = useMemo<Record<string, Glider[]>>(() => {
@@ -102,7 +111,7 @@ export default function App() {
     setModConfigs((prev) => ({ ...prev, [id]: cfg }));
   }
 
-  if (!authed) return <LoginScreen onLogin={() => setAuthed(true)} />;
+  if (!userTier) return <LoginScreen onLogin={(tier) => setUserTier(tier)} />;
 
   if (error)      return <div className="p-6 text-red-600">Failed to load gliders: {error}</div>;
   if (!allGliders) return <div className="p-6 text-slate-500">Loading gliders…</div>;
