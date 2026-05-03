@@ -110,7 +110,9 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50 p-6">
       <header className="mb-6">
-        <h1 className="text-2xl font-bold text-slate-900">Sailplane Performance Database</h1>
+        <h1 className="text-2xl font-bold text-slate-900">
+          SPADE <span className="font-normal text-slate-500">— Sailplane Performance Analysis Database</span>
+        </h1>
         <p className="text-sm text-slate-500">
           Click a glider to plot its polar. Select up to 4 to compare. Adjust wing loading with the sliders.
         </p>

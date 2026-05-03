@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Interactive sailplane performance comparison tool",
+  "description": "SPADE — Sailplane Performance Analysis Database",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
