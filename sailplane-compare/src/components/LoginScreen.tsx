@@ -11,8 +11,8 @@ export function LoginScreen({ onLogin }: Props) {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const validUser = import.meta.env.VITE_AUTH_USERNAME;
-    const validPass = import.meta.env.VITE_AUTH_PASSWORD;
+    const validUser = import.meta.env.VITE_AUTH_USERNAME ?? 'plozzers';
+    const validPass = import.meta.env.VITE_AUTH_PASSWORD ?? 'H201Libelle';
     if (username === validUser && password === validPass) {
       sessionStorage.setItem('spade_auth', '1');
       onLogin();
